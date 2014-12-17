@@ -2,6 +2,8 @@
 
 ## CAUTION! ##
 
+This a modified version of ITEADLIB_Arduino_ESP8266 library from ITEAD.
+
 You may need to modify the baud rate in file `uartWIFI.cpp`:
 
 	_cell.begin(9600)
