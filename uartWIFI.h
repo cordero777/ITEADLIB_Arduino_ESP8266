@@ -7,16 +7,19 @@ Created by Stan Lee(Lizq@iteadstudio.com)
 
 Modified version
 V1.0	released the first version of ESP8266 library
-
+V1.1    mods by Cordero777
 
 
 */
 
 
 #define DEBUG //uncomment to enable debugging
+// **** before including this file one of the following shoud be defined
 //#define UNO			//uncomment this line when you use it with UNO board or Mini
+//#define ALTSOFT		// define this to use AltSoftSerial instead of of HArdwareSerial for UNO 
 //#define MEGA		//uncomment this line when you use it with MEGA board
-#define LEO		//uncomment this line when you use it with Leonardo or Micro board
+//#define LEO		//uncomment this line when you use it with Leonardo or Micro board
+// *****
 
 #ifndef __UARTWIFI_H__
 #define __UARTWIFI_H__
@@ -24,11 +27,24 @@ V1.0	released the first version of ESP8266 library
 //#include "NilRTOS.h"
 
 //Set UNO for ESP on D0/D1 UART and debug on FTDI and slower rate
+/* BY: cordero777
+	There are two possibilities to connect module to UNO. One is Hardwware Serial on D00/D01.
+   The other is D08/D09 using AltSoftSerial. AltSoftSerial provides 38400  bit/s which is much better than 9600
+   of the SoftwareSerial, but leaves HardwareSerial for communication.
+*/
+
 #ifdef UNO
 #include <SoftwareSerial.h>
+#fdef ALTSOFT
+#include <AltSoftSerial.h>
+#endif
 #define _DBG_RXPIN_ 2
 #define _DBG_TXPIN_ 3
+#ifdef ALTSOFT
+#define _cell AltSoftSerial
+#elseif
 #define _cell	Serial
+#endif
 #define DebugSerial	mySerial
 #define debugBaudRate 9600
 extern SoftwareSerial mySerial;
